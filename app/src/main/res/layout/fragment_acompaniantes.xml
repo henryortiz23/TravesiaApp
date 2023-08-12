@@ -6,36 +6,67 @@
     android:layout_height="match_parent"
     tools:context=".ui.acompaniantes.AcompaniantesFragment">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnImportar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/importar_contactos"
-        android:visibility="gone"
-        app:icon="@drawable/ic_contacts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnDeteleAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/eliminar_contactos"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAcompaniantes"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <RadioGroup
+            android:id="@+id/rGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_options_cards"
+            android:checkedButton="@id/btnTodos"
+            android:elevation="4dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/btnTodos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button1"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_contacts"
+                android:drawableTint="@drawable/text_buttons"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:text="@string/todos"
+                android:textColor="@drawable/text_buttons" />
+
+            <RadioButton
+                android:id="@+id/btnFrecuentes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button2"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_contacts_favorite"
+                android:drawableTint="@drawable/text_buttons"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:text="@string/frecuentes"
+                android:textAllCaps="false"
+                android:textColor="@drawable/text_buttons" />
+        </RadioGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAcompaniantes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFrecuentes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvLoading"
@@ -46,8 +77,19 @@
         android:padding="20dp"
         android:text="@string/sin_contactos"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?colorPrimary" />
+
+    <TextView
+        android:id="@+id/tvFrecuentes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="@string/no_contactos_frecuentes"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textColor="?colorPrimary"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/bFabAction"
@@ -56,10 +98,16 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:contentDescription="@string/nueva_nota"
         android:text="@string/importar_contactos"
         app:icon="@drawable/ic_contacts"
-
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+
+
+    <Button
+        android:id="@+id/btnPrueba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="prueba"
+        android:layout_gravity="bottom|start"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.softs.hn.ip.travesiaapp.ui.inicio;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.softs.hn.ip.travesiaapp.databinding.FragmentInicioBinding;
+import com.softs.hn.ip.travesiaapp.entity.Contacto;
 import com.softs.hn.ip.travesiaapp.entity.Nota;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
 public class InicioFragment extends Fragment implements OnItemClickListenerNotas<Nota>{
 
@@ -37,19 +42,41 @@ public class InicioFragment extends Fragment implements OnItemClickListenerNotas
             adapter.setItems(notas);
         });
 
+        binding.bFab.setOnClickListener(v ->{
+            nuevaNota();
+        });
+
         setupRecyclerView();
 
         return root;
     }
 
     private void setupRecyclerView() {
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         binding.rvNotas.setLayoutManager(layoutManager);
 
-        //binding.rvNotas.setLayoutManager(linearLayoutManager);
         binding.rvNotas.setAdapter(adapter);
     }
+
+    private void nuevaNota(){
+        Nota nNueva= new Nota("Castillo de Omoa",obtenerFecha(),"Es un castillo de la era medieval, el cual a pesar del tiempo aun se mantiene en pie","","15.778583","-88.040023",obtenerRecursoImg());
+        viewModel.insert(nNueva);
+
+    }
+    public int obtenerRecursoImg(){
+        Random random = new Random();
+        int n = random.nextInt(17) + 1;
+        return n;
+    }
+
+    private String obtenerFecha(){
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String fecha = dateFormat.format(currentDate);
+
+        return fecha;
+    }
+
 
     @Override
     public void onDestroyView() {

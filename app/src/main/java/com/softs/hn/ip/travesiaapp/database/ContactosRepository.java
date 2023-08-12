@@ -13,15 +13,23 @@ public class ContactosRepository {
     private ContactosDao dao;
     private LiveData<List<Contacto>> dataset;
 
+    private LiveData<List<Contacto>> dataFrecuentes;
+
     public ContactosRepository(Application app) {
         Database db = Database.getDatabase(app);
         this.dao = db.ContactosDao();
         this.dataset = dao.getContactos();
+        this.dataFrecuentes= dao.getContactosFrecuentes();
     }
 
     public LiveData<List<Contacto>> getDataset() {
         return dataset;
     }
+
+    public LiveData<List<Contacto>> getContactosFrecuentes() {
+        return dao.getContactosFrecuentes();
+    }
+
 
     public void insert(Contacto data){
         Database.databaseWriteExecutor.execute(() -> {

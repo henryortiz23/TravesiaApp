@@ -42,6 +42,7 @@ public abstract class Database extends RoomDatabase {
                                 dao.deleteAll();
 
 
+                                /*
                                 Date currentDate = new Date();
                                 @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                                 String formattedDateTime = dateFormat.format(currentDate);
@@ -59,6 +60,8 @@ public abstract class Database extends RoomDatabase {
                                 dao.insert(nota2);
                                 dao.insert(nota3);
                                 dao.insert(nota4);
+
+                                 */
                             });
 
                         }

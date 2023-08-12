@@ -29,4 +29,7 @@ public interface ContactosDao {
 
     @Query("select * from contactos_table order by id")
     LiveData<List<Contacto>> getContactos();
+
+    @Query("SELECT * FROM contactos_table WHERE fav > 0 ORDER BY fav DESC")
+    LiveData<List<Contacto>> getContactosFrecuentes();
 }

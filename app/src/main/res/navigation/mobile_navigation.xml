@@ -8,24 +8,19 @@
     <fragment
         android:id="@+id/navigation_inicio"
         android:name="com.softs.hn.ip.travesiaapp.ui.inicio.InicioFragment"
-        android:label="@string/title_home"
+        android:label="@string/titulo_inicio"
         tools:layout="@layout/fragment_inicio" />
 
     <fragment
         android:id="@+id/navigation_notas"
         android:name="com.softs.hn.ip.travesiaapp.ui.notas.NotasFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/titulo_notas"
         tools:layout="@layout/fragment_notas" />
 
     <fragment
         android:id="@+id/navigation_acompaniantes"
         android:name="com.softs.hn.ip.travesiaapp.ui.acompaniantes.AcompaniantesFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/titulo_acompaniantes"
         tools:layout="@layout/fragment_acompaniantes" />
 
-    <fragment
-        android:id="@+id/navigation_contactos_frecuentes"
-        android:name="com.softs.hn.ip.travesiaapp.ui.contactosfrecuentes.ContactosFrecuentesFragment"
-        android:label="@string/title_contacts_frecuentes"
-        tools:layout="@layout/fragment_contacts_frecuentes" />
 </navigation>

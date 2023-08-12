@@ -11,7 +11,6 @@ import java.io.Serializable;
 public class Contacto implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
     @ColumnInfo(name = "id")
     private int id;
 
@@ -24,10 +23,14 @@ public class Contacto implements Serializable {
     @ColumnInfo(name = "email")
     private String email;
 
-    public Contacto(String name, String phone, String email) {
+    @ColumnInfo(name = "fav")
+    private int fav;
+
+    public Contacto(String name, String phone, String email, int fav) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.fav = fav;
     }
 
     public int getId() {
@@ -60,5 +63,13 @@ public class Contacto implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getFav() {
+        return fav;
+    }
+
+    public void setFav(int fav) {
+        this.fav = fav;
     }
 }

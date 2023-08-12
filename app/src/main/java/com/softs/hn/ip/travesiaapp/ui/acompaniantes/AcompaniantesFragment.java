@@ -12,36 +12,32 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.softs.hn.ip.travesiaapp.R;
 import com.softs.hn.ip.travesiaapp.databinding.FragmentAcompaniantesBinding;
 import com.softs.hn.ip.travesiaapp.entity.Contacto;
 import com.softs.hn.ip.travesiaapp.entity.Contacto2;
-import com.softs.hn.ip.travesiaapp.ui.inicio.InicioViewModel;
-import com.softs.hn.ip.travesiaapp.ui.inicio.NotasAdapter;
 import com.softs.hn.ip.travesiaapp.ui.inicio.OnItemClickListenerNotas;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class AcompaniantesFragment extends Fragment implements OnItemClickListenerNotas<Contacto> {
 
     private FragmentAcompaniantesBinding binding;
 
-    private ContactosAdapter adapter;
+    private ContactosAdapter adapterTodos;
+    private ContactosAdapter adapterFrecuentes;
 
     AcompaniantesViewModel aContactos;
 
@@ -56,11 +52,12 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
 
         aContactos = new ViewModelProvider(this).get(AcompaniantesViewModel.class);
 
-        adapter = new ContactosAdapter(new ArrayList<>(), this);
+        adapterTodos = new ContactosAdapter(new ArrayList<>(), this);
+        adapterFrecuentes = new ContactosAdapter(new ArrayList<>(), this);
 
         actualizarInformacion();
         binding.bFabAction.setOnClickListener(v -> {
-            if (adapter.getItemCount() > 0) {
+            if (adapterTodos.getItemCount() > 0) {
                 aContactos.deleteAll();
             } else {
                 binding.bFabAction.setVisibility(View.GONE);
@@ -71,6 +68,33 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
             }
         });
 
+
+        binding.rGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == binding.btnTodos.getId()) {
+                binding.rvFrecuentes.setVisibility(View.GONE);
+                binding.rvAcompaniantes.setVisibility(View.VISIBLE);
+                binding.bFabAction.setVisibility(View.VISIBLE);
+                binding.tvFrecuentes.setVisibility(View.GONE);
+                if (adapterTodos.getItemCount() != 0) {
+                    binding.tvLoading.setVisibility(View.GONE);
+                } else {
+                    binding.tvLoading.setVisibility(View.VISIBLE);
+                }
+            } else {
+                binding.rvAcompaniantes.setVisibility(View.GONE);
+                binding.rvFrecuentes.setVisibility(View.VISIBLE);
+                binding.bFabAction.setVisibility(View.GONE);
+                binding.tvLoading.setVisibility(View.GONE);
+                if (adapterFrecuentes.getItemCount() != 0) {
+                    binding.tvFrecuentes.setVisibility(View.GONE);
+                } else {
+                    binding.tvFrecuentes.setVisibility(View.VISIBLE);
+                }
+            }
+
+
+        });
+
         setupRecyclerView();
         return root;
     }
@@ -78,9 +102,13 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
 
     private void setupRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this.getContext());
         binding.rvAcompaniantes.setLayoutManager(linearLayoutManager);
+        binding.rvFrecuentes.setLayoutManager(linearLayoutManager2);
 
-        binding.rvAcompaniantes.setAdapter(adapter);
+        binding.rvAcompaniantes.setAdapter(adapterTodos);
+        binding.rvFrecuentes.setAdapter(adapterFrecuentes);
+
     }
 
     private void solicitudPermisoContactos(Context context) {
@@ -130,7 +158,6 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
 
                 Contacto2 nuevo2 = new Contacto2(name, phone, correo);
 
-                //if (!contactos.contains(nuevo2)) {
                 String n1, n2, p1, p2, e1, e2;
                 n1 = cOld.getName();
                 n2 = nuevo2.getName();
@@ -142,7 +169,7 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
                 if (!n1.equals(n2) || !p1.equals(p2) || !e1.equals(e2)) {
                     cOld = nuevo2;
                     contactos.add(nuevo2);
-                    Contacto nuevo = new Contacto(name, phone, correo);
+                    Contacto nuevo = new Contacto(name, phone, correo, 0);
                     aContactos.insert(nuevo);
                 }
 
@@ -156,28 +183,46 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
     }
 
     private void actualizarInformacion() {
-        aContactos.getDataSet().observe(getViewLifecycleOwner(), contactos -> {
-            adapter.setItems(contactos);
-            if (adapter.getItemCount() > 0) {
-                if (op == 1) {
-                    op = 2;
-                    binding.tvLoading.setVisibility(View.GONE);
-                    Drawable dIcon = getResources().getDrawable(R.drawable.ic_delete_24dp);
-                    binding.bFabAction.setIcon(dIcon);
-                    binding.bFabAction.setText(R.string.eliminar_contactos);
-                }
-            } else {
-                if (op == 2) {
-                    op = 1;
-                    Drawable dIcon = getResources().getDrawable(R.drawable.ic_companiero_24dp);
-                    binding.bFabAction.setIcon(dIcon);
-                    binding.tvLoading.setText(getString(R.string.sin_contactos));
-                    binding.bFabAction.setText(R.string.importar_contactos);
-
-                    binding.tvLoading.setVisibility(View.VISIBLE);
+        aContactos.getDataFrecuentes().observe(getViewLifecycleOwner(), contactos_frecuentes -> {
+            adapterFrecuentes.setItems(contactos_frecuentes);
+            if (binding.rGroup.getCheckedRadioButtonId() == binding.btnFrecuentes.getId()) {
+                if (adapterFrecuentes.getItemCount() > 0) {
+                    binding.tvFrecuentes.setVisibility(View.GONE);
+                } else {
+                    binding.tvFrecuentes.setVisibility(View.VISIBLE);
                 }
             }
         });
+
+        aContactos.getDataSet().observe(getViewLifecycleOwner(), contactos -> {
+            adapterTodos.setItems(contactos);
+            if (binding.rGroup.getCheckedRadioButtonId() == binding.btnTodos.getId()) {
+                if (adapterTodos.getItemCount() > 0) {
+                    if (op == 1) {
+                        op = 2;
+                        binding.tvLoading.setVisibility(View.GONE);
+                        Drawable dIcon = getResources().getDrawable(R.drawable.ic_delete_24dp);
+                        binding.bFabAction.setIcon(dIcon);
+                        binding.bFabAction.setText(R.string.eliminar_contactos);
+                    }
+                } else {
+                    if (op == 2) {
+                        op = 1;
+                        Drawable dIcon = getResources().getDrawable(R.drawable.ic_contacts);
+                        binding.bFabAction.setIcon(dIcon);
+                        binding.tvLoading.setText(getString(R.string.sin_contactos));
+                        binding.bFabAction.setText(R.string.importar_contactos);
+
+                        binding.tvLoading.setVisibility(View.VISIBLE);
+                    }
+                }
+            } else {
+                binding.bFabAction.setVisibility(View.GONE);
+            }
+        });
+
+
+
     }
 
     @Override
@@ -185,11 +230,11 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
         if (requestCode == PERMISSION_REQUEST_READ_CONTACT) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getContacts(requireContext());
-                if (adapter.getItemCount() == 0) {
+                if (adapterTodos.getItemCount() == 0) {
                     binding.tvLoading.setVisibility(View.GONE);
                 }
             } else {
-                if (adapter.getItemCount() == 0) {
+                if (adapterTodos.getItemCount() == 0) {
                     binding.tvLoading.setText(getString(R.string.sin_contactos));
                     binding.tvLoading.setVisibility(View.VISIBLE);
                 }
@@ -197,7 +242,6 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
             }
         }
     }
-
 
     @Override
     public void onDestroyView() {
@@ -207,7 +251,8 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
 
     @Override
     public void onItemClick(Contacto data) {
-
+        data.setFav((data.getFav()+1));
+        aContactos.update(data);
     }
 
     @Override

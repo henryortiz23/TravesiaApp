@@ -20,14 +20,19 @@ public class AcompaniantesViewModel extends AndroidViewModel {
     private ContactosRepository repository;
     private final LiveData<List<Contacto>> dataSet;
 
+    private final LiveData<List<Contacto>> dataFrecuentes;
+
     public AcompaniantesViewModel(@NonNull Application app) {
         super(app);
         this.repository= new ContactosRepository(app);
         this.dataSet= repository.getDataset();
+        this.dataFrecuentes = repository.getContactosFrecuentes();
     }
 
     private ContactosRepository getRepository(){return repository;}
     public LiveData<List<Contacto>> getDataSet(){return dataSet;}
+
+    public LiveData<List<Contacto>> getDataFrecuentes(){return dataFrecuentes;}
 
     public void insert(Contacto data) {
         repository.insert(data);

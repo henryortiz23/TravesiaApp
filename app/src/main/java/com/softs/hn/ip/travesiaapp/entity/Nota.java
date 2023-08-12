@@ -33,21 +33,24 @@ public class Nota implements Serializable{
     @ColumnInfo(name = "longitud")
     private String longitud;
 
-    public Nota(@NonNull String lugar, String fecha, String comentario, String acompaniante, @NonNull String latitud, String longitud) {
+    @ColumnInfo(name = "img")
+    private int img;
+
+    public Nota(@NonNull String lugar, String fecha, String comentario, String acompaniante, @NonNull String latitud, String longitud, int img) {
         this.lugar = lugar;
         this.fecha = fecha;
         this.comentario = comentario;
         this.acompaniante = acompaniante;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.img = img;
     }
 
-    @NonNull
     public Integer getIdNota() {
         return idNota;
     }
 
-    public void setIdNota(@NonNull Integer idNota) {
+    public void setIdNota(Integer idNota) {
         this.idNota = idNota;
     }
 
@@ -99,5 +102,13 @@ public class Nota implements Serializable{
 
     public void setLongitud(String longitud) {
         this.longitud = longitud;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
     }
 }

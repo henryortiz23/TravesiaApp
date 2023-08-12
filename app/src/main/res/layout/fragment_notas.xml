@@ -49,56 +49,59 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:padding="10dp"
-        android:minHeight="50dp"
-        android:background="@drawable/bg_options_cards"
-        android:layout_margin="10dp"
-        android:elevation="10dp">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contacto1"/>
-
-
-        <com.google.android.material.chip.Chip
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:chipIcon="@drawable/bg_options_cards"
-            android:text="Texto1" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-    </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_options_cards"
+            android:elevation="10dp"
+            android:minHeight="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp">
+            android:padding="10dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contacto1" />
+
+
+            <com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Texto1"
+                app:chipIcon="@drawable/bg_options_cards" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/bGuardar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/guardar"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="@string/guardar" />
 
             <Button
                 android:id="@+id/bCancelar"
+                style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-                android:text="@string/cancelar"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="@string/cancelar" />
         </LinearLayout>
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

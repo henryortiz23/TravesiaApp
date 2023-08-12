@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/navigation_inicio"
         android:icon="@drawable/ic_home_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/titulo_inicio"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/navigation_notas"
         android:icon="@drawable/ic_notes_24dp"
-        android:title="@string/title_notifications" />
+        android:title="@string/titulo_notas" />
 
     <item
         android:id="@+id/navigation_acompaniantes"
         android:icon="@drawable/ic_contacts"
-        android:title="@string/title_dashboard" />
+        android:title="@string/titulo_acompaniantes" />
 
-    <item
-        android:id="@+id/navigation_contactos_frecuentes"
-        android:icon="@drawable/ic_notes_24dp"
-        android:title="@string/title_contacts_frecuentes" />
 </menu>
