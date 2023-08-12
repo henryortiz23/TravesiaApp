@@ -14,11 +14,11 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            android:background="?colorPrimary"
+            android:background="?android:attr/windowBackground"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:titleCentered="true"
-            app:titleTextColor="?colorOnPrimary"
+            app:titleTextColor="?colorPrimary"
             app:title="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>

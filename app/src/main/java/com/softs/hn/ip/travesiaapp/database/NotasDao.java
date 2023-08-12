@@ -7,23 +7,25 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.softs.hn.ip.travesiaapp.entity.Nota;
+
 import java.util.List;
 
 @Dao
-public interface ClientesDao {
+public interface NotasDao {
 
     @Insert
-    void insert(Cliente nuevo);
+    void insert(Nota data);
 
     @Update
-    void update(Cliente actualizar);
+    void update(Nota data);
 
-    @Query("DELETE FROM clientes_table")
+    @Query("DELETE FROM notas_table")
     void deleteAll();
 
     @Delete
-    void delete(Cliente eliminar);
+    void delete(Nota data);
 
-    @Query("select * from clientes_table order by nombre")
-    LiveData<List<Cliente>> getClientes();
+    @Query("select * from notas_table order by id")
+    LiveData<List<Nota>> getNotas();
 }

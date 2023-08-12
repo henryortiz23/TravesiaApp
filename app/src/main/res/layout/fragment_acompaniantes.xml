@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.acompaniantes.AcompaniantesFragment">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnImportar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/importar_contactos"
+        android:visibility="gone"
+        app:icon="@drawable/ic_contacts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeteleAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/eliminar_contactos"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAcompaniantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp" />
+
+
+    <TextView
+        android:id="@+id/tvLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="@string/sin_contactos"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?colorPrimary"
+        android:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/bFabAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/nueva_nota"
+        android:text="@string/importar_contactos"
+        app:icon="@drawable/ic_contacts"
+
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

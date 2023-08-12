@@ -4,46 +4,48 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.softs.hn.ip.travesiaapp.entity.Nota;
+
 import java.util.List;
 
-public class ClientesRepository {
-    private ClientesDao dao;
-    private LiveData<List<Cliente>> dataset;
+public class NotasRepository {
+    private NotasDao dao;
+    private LiveData<List<Nota>> dataset;
 
-    public ClientesRepository(Application app) {
-        ClientesDatabase db = ClientesDatabase.getDatabase(app);
-        this.dao = db.pedidoDao();
-        this.dataset = dao.getClientes();
+    public NotasRepository(Application app) {
+        Database db = Database.getDatabase(app);
+        this.dao = db.NotasDao();
+        this.dataset = dao.getNotas();
     }
 
-    public LiveData<List<Cliente>> getDataset() {
+    public LiveData<List<Nota>> getDataset() {
         return dataset;
     }
 
-    public void insert(Cliente nuevo){
+    public void insert(Nota nuevo){
         //INSERTANDO DE FORMA ASINCRONA, PARA NO AFECTAR LA INTERFAZ DE USUARIO
-        ClientesDatabase.databaseWriteExecutor.execute(() -> {
+        Database.databaseWriteExecutor.execute(() -> {
             dao.insert(nuevo);
         });
     }
 
-    public void update(Cliente actualizar){
+    public void update(Nota actualizar){
         //ACTUALIZANDO DE FORMA ASINCRONA, PARA NO AFECTAR LA INTERFAZ DE USUARIO
-        ClientesDatabase.databaseWriteExecutor.execute(() -> {
+        Database.databaseWriteExecutor.execute(() -> {
             dao.update(actualizar);
         });
     }
 
-    public void delete(Cliente borrar){
+    public void delete(Nota borrar){
         //BORRANDO UN REGISTRO DE FORMA ASINCRONA, PARA NO AFECTAR LA INTERFAZ DE USUARIO
-        ClientesDatabase.databaseWriteExecutor.execute(() -> {
+        Database.databaseWriteExecutor.execute(() -> {
             dao.delete(borrar);
         });
     }
 
     public void deleteAll(){
         //BORRANDO TODOS LOS REGISTROS DE FORMA ASINCRONA, PARA NO AFECTAR LA INTERFAZ DE USUARIO
-        ClientesDatabase.databaseWriteExecutor.execute(() -> {
+        Database.databaseWriteExecutor.execute(() -> {
             dao.deleteAll();
         });
     }

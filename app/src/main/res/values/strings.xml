@@ -1,6 +1,22 @@
 <resources>
     <string name="app_name">TravesiaApp</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_dashboard">Acompañantes</string>
+    <string name="title_notifications">Notas</string>
+    <string name="title_contacts_frecuentes">Acompañantes frecuentes</string>
+    <string name="content_description_media">Fotografia del lugar</string>
+    <string name="nombre_lugar">Nombre del lugar</string>
+    <string name="guardar">Guardar</string>
+    <string name="nueva_nota">Nueva nota</string>
+    <string name="editar">Editar</string>
+    <string name="shared">Compartir</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="comentario_lugar">Comentario</string>
+    <string name="eliminar_contactos">Eliminar contactos</string>
+    <string name="importar_contactos">Importar contactos</string>
+    <string name="sin_contactos">No hay contactos importados, presione el botón \"Importar contactos\" para importar la lista de contactos</string>
+    <string name="importando_contactos">Importando contactos, espere por favor…</string>
+
+
 </resources>
