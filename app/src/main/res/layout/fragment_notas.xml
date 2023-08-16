@@ -7,6 +7,7 @@
     tools:context=".ui.notas.NotasFragment">
 
     <LinearLayout
+        android:id="@+id/lNota"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -20,9 +21,7 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:hint="@string/nombre_lugar">
 
@@ -37,9 +36,7 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:hint="@string/comentario_lugar">
 
@@ -52,28 +49,106 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/bg_options_cards"
-            android:elevation="10dp"
-            android:minHeight="50dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_margin="1dp"
+            android:orientation="vertical">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip1"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contacto1" />
+                android:background="@drawable/bg_select_contacts"
+                android:orientation="vertical">
 
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupAcompaniantes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    app:chipSpacingHorizontal="4dp"
+                    app:chipSpacingVertical="-10dp"
+                    app:lineSpacing="0dp"
+                    app:selectionRequired="false" />
 
-            <com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvSinContactosSeleccionados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingBottom="8dp"
+                    android:text="@string/sin_contactos_seleccionados"
+                    android:textColor="?colorSecondaryFixedDim" />
+
+                <Button
+                    android:id="@+id/btnMostrarContactos"
+                    style="@style/Widget.Material3.Button.IconButton.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mostrar_acompaniantes" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnAcompaniantes"
+                style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Texto1"
-                app:chipIcon="@drawable/bg_options_cards" />
+                android:text="@string/seleccione_acompaniante" />
+
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imgLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ubicacion_ok2"
+                android:padding="2dp"
+                android:src="@drawable/loading"
+                app:tint="?colorOnPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:text="@string/obteniendo_ubicacion" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lUbicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ubicacion_ok2"
+                android:padding="2dp"
+                android:src="@drawable/baseline_location_on_24"
+                app:tint="?colorOnPrimary" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/ubicacion_obtenida" />
+
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,7 +157,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/bGuardar"
+                android:id="@+id/btnGuardar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -91,15 +166,88 @@
                 android:text="@string/guardar" />
 
             <Button
-                android:id="@+id/bCancelar"
+                android:id="@+id/btnCancelar"
                 style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:text="@string/cancelar" />
+                android:text="@string/cancelar"
+                android:visibility="gone" />
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lContactos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegresar"
+                style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/regresar"
+                app:icon="@drawable/baseline_arrow_back_24" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/seleccione_acompaniante"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        </LinearLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/lSelectAcompaniantes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupSelectAcompaniantes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    app:chipSpacingHorizontal="4dp"
+                    app:chipSpacingVertical="-10dp"
+                    app:lineSpacing="0dp"
+                    app:selectionRequired="false" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAcompaniantes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp" />
+
 
     </LinearLayout>
 

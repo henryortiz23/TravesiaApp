@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.inicio.InicioFragment">
 
+
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/round_post_add_24"
+        android:layout_gravity="center"
+        app:tint="?colorTertiaryFixed"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNotas"
         android:layout_width="match_parent"
@@ -18,10 +27,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:contentDescription="@string/nueva_nota"
         android:src="@drawable/round_post_add_24"
         android:tint="@color/md_theme_dark_inversePrimary"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

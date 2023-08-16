@@ -28,10 +28,11 @@
         <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
 
-        <item name="android:navigationBarColor">?android:attr/windowBackground</item>
+        <item name="android:navigationBarColor">?colorOnSurfaceInverse</item>
         <item name="android:windowLightNavigationBar">false</item>
 
-        <item name="android:statusBarColor">?android:attr/windowBackground</item>
+        <item name="android:statusBarColor">?colorOnSurfaceInverse</item>
         <item name="android:windowLightStatusBar">false</item>
+
     </style>
 </resources>

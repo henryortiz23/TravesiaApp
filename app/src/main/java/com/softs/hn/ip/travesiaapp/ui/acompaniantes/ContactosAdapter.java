@@ -20,11 +20,10 @@ import java.util.Random;
 public class ContactosAdapter extends RecyclerView.Adapter<ContactosAdapter.ViewHolder> {
 
     private List<Contacto> dataset;
-    private OnItemClickListenerNotas<Contacto> manejadorEventoClick;
+    //private OnItemClickListenerNotas<Contacto> manejadorEventoClick;
 
-    public ContactosAdapter(List<Contacto> dataset, OnItemClickListenerNotas<Contacto> manejadorEventoClick) {
+    public ContactosAdapter(List<Contacto> dataset) {
         this.dataset = dataset;
-        this.manejadorEventoClick = manejadorEventoClick;
     }
 
     @NonNull
@@ -48,11 +47,6 @@ public class ContactosAdapter extends RecyclerView.Adapter<ContactosAdapter.View
         holder.binding.tvContact.setText(contacto.getName());
         holder.binding.tvTelefono.setText(contacto.getPhone());
         holder.binding.tvEmail.setText(contacto.getEmail());
-
-
-        holder.setOnClickListener(contacto, manejadorEventoClick);
-
-
     }
 
     @Override
@@ -71,15 +65,6 @@ public class ContactosAdapter extends RecyclerView.Adapter<ContactosAdapter.View
         public ViewHolder(@NonNull ItemContactoBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
-        }
-
-        public void setOnClickListener(Contacto datosContacto, OnItemClickListenerNotas<Contacto> listener) {
-            this.itemView.setOnClickListener(v -> {
-
-                listener.onItemClick(datosContacto);
-            });
-
-            //this.binding.btnDelete.setOnClickListener(v -> listener.onItemClickDelete(datosNota));
         }
     }
 }

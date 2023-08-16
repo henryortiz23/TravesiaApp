@@ -102,12 +102,4 @@
         app:icon="@drawable/ic_contacts"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
-
-    <Button
-        android:id="@+id/btnPrueba"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="prueba"
-        android:layout_gravity="bottom|start"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

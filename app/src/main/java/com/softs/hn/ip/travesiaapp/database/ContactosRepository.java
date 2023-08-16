@@ -15,11 +15,12 @@ public class ContactosRepository {
 
     private LiveData<List<Contacto>> dataFrecuentes;
 
+
     public ContactosRepository(Application app) {
         Database db = Database.getDatabase(app);
         this.dao = db.ContactosDao();
         this.dataset = dao.getContactos();
-        this.dataFrecuentes= dao.getContactosFrecuentes();
+        this.dataFrecuentes = dao.getContactosFrecuentes();
     }
 
     public LiveData<List<Contacto>> getDataset() {
@@ -30,26 +31,23 @@ public class ContactosRepository {
         return dao.getContactosFrecuentes();
     }
 
+    public LiveData<Contacto> getContactoPorId(int id) {
+        return dao.obtenerContactoPorId(id);
+    }
 
-    public void insert(Contacto data){
+    public void insert(Contacto data) {
         Database.databaseWriteExecutor.execute(() -> {
             dao.insert(data);
         });
     }
 
-    public void update(Contacto data){
+    public void update(Contacto data) {
         Database.databaseWriteExecutor.execute(() -> {
             dao.update(data);
         });
     }
 
-    public void delete(Contacto data){
-        Database.databaseWriteExecutor.execute(() -> {
-            dao.delete(data);
-        });
-    }
-
-    public void deleteAll(){
+    public void deleteAll() {
         Database.databaseWriteExecutor.execute(() -> {
             dao.deleteAll();
         });

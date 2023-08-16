@@ -2,12 +2,13 @@
     <string name="app_name">TravesiaApp</string>
     <string name="titulo_inicio">Inicio</string>
     <string name="titulo_acompaniantes">Acompañantes</string>
-    <string name="titulo_notas">Notas</string>
+    <string name="titulo_notas">Crear/Editar nota</string>
     <string name="todos">Todos</string>
     <string name="frecuentes">Frecuentes</string>
-    <string name="content_description_media">Fotografia del lugar</string>
+    <string name="content_description_media">Fotografía del lugar</string>
     <string name="nombre_lugar">Nombre del lugar</string>
     <string name="guardar">Guardar</string>
+    <string name="aceptar">Aceptar</string>
     <string name="nueva_nota">Nueva nota</string>
     <string name="editar">Editar</string>
     <string name="compartir">Compartir</string>
@@ -19,5 +20,18 @@
     <string name="sin_contactos">No hay contactos importados, presione el botón \"Importar contactos\" para importar la lista de contactos</string>
     <string name="importando_contactos">Importando contactos, espere por favor…</string>
     <string name="no_contactos_frecuentes">No hay contactos frecuentes</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="eliminar_nota">Desea eliminar la nota del lugar </string>
+    <string name="seleccione_acompaniante">Seleccione acompañantes</string>
+    <string name="sin_contactos_seleccionados">Sin acompañantes seleccionados</string>
+    <string name="obteniendo_ubicacion">Obteniendo ubicación…</string>
+    <string name="ubicacion_obtenida">Ubicación obtenida  &#10003;</string>
+    <string name="mostrar_acompaniantes">Mostrar acompañantes</string>
+    <string name="regresar">Regresar</string>
+    <string name="seleccione_acomp_compartir">Seleccione acompañante con quien compartir.</string>
+    <string name="seleccione_app_compartir">Seleccione medio para compartir</string>
+    <string name="falta_informacion">Debe de proporcionar la informacion solicitada (lugar y comentario).</string>
+    <string name="permiso_denegado">Permiso denegado</string>
+    <string name="companieros_maximos">Solo puede seleccionar 6 acompañantes como máximo</string>
 
 </resources>

@@ -24,12 +24,13 @@ public interface ContactosDao {
     @Query("DELETE FROM contactos_table")
     void deleteAll();
 
-    @Delete
-    void delete(Contacto data);
 
     @Query("select * from contactos_table order by id")
     LiveData<List<Contacto>> getContactos();
 
     @Query("SELECT * FROM contactos_table WHERE fav > 0 ORDER BY fav DESC")
     LiveData<List<Contacto>> getContactosFrecuentes();
+
+    @Query("SELECT * FROM contactos_table WHERE id = :id")
+    LiveData<Contacto> obtenerContactoPorId(int id);
 }

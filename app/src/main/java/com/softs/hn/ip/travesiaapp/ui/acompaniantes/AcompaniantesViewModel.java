@@ -34,16 +34,15 @@ public class AcompaniantesViewModel extends AndroidViewModel {
 
     public LiveData<List<Contacto>> getDataFrecuentes(){return dataFrecuentes;}
 
+    public LiveData<Contacto> getDataContactoId(int id){
+        return repository.getContactoPorId(id);
+    }
     public void insert(Contacto data) {
         repository.insert(data);
     }
 
     public void update(Contacto data) {
         repository.update(data);
-    }
-
-    public void delete(Contacto data) {
-        repository.delete(data);
     }
 
     public void deleteAll() {

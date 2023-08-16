@@ -74,6 +74,8 @@ public class NotasAdapter extends RecyclerView.Adapter<NotasAdapter.ViewHolder> 
             });
 
             this.binding.btnDelete.setOnClickListener(v -> listener.onItemClickDelete(datosNota));
+            this.binding.btnEdit.setOnClickListener(v -> listener.onItemClick(datosNota));
+            this.binding.btnShared.setOnClickListener(v -> listener.onItemClickShared(datosNota));
         }
     }
 }

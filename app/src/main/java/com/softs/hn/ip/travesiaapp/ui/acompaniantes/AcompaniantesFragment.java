@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.softs.hn.ip.travesiaapp.R;
 import com.softs.hn.ip.travesiaapp.databinding.FragmentAcompaniantesBinding;
 import com.softs.hn.ip.travesiaapp.entity.Contacto;
@@ -32,7 +33,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class AcompaniantesFragment extends Fragment implements OnItemClickListenerNotas<Contacto> {
+public class AcompaniantesFragment extends Fragment{
 
     private FragmentAcompaniantesBinding binding;
 
@@ -52,8 +53,8 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
 
         aContactos = new ViewModelProvider(this).get(AcompaniantesViewModel.class);
 
-        adapterTodos = new ContactosAdapter(new ArrayList<>(), this);
-        adapterFrecuentes = new ContactosAdapter(new ArrayList<>(), this);
+        adapterTodos = new ContactosAdapter(new ArrayList<>());
+        adapterFrecuentes = new ContactosAdapter(new ArrayList<>());
 
         actualizarInformacion();
         binding.bFabAction.setOnClickListener(v -> {
@@ -238,7 +239,7 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
                     binding.tvLoading.setText(getString(R.string.sin_contactos));
                     binding.tvLoading.setVisibility(View.VISIBLE);
                 }
-                Toast.makeText(getContext(), "PERMISO DENEGADO", Toast.LENGTH_SHORT).show();
+                Snackbar.make(binding.bFabAction, R.string.permiso_denegado, Snackbar.LENGTH_SHORT).show();
             }
         }
     }
@@ -249,19 +250,4 @@ public class AcompaniantesFragment extends Fragment implements OnItemClickListen
         binding = null;
     }
 
-    @Override
-    public void onItemClick(Contacto data) {
-        data.setFav((data.getFav()+1));
-        aContactos.update(data);
-    }
-
-    @Override
-    public void onItemClickDelete(Contacto data) {
-
-    }
-
-    @Override
-    public void onItemClickShared(Contacto data) {
-
-    }
 }
