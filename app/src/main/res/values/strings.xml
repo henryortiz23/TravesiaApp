@@ -30,7 +30,7 @@
     <string name="regresar">Regresar</string>
     <string name="seleccione_acomp_compartir">Seleccione acompañante con quien compartir.</string>
     <string name="seleccione_app_compartir">Seleccione medio para compartir</string>
-    <string name="falta_informacion">Debe de proporcionar la informacion solicitada (lugar y comentario).</string>
+    <string name="falta_informacion">Debe de proporcionar la informacion solicitada (lugar y comentario, ubicación).</string>
     <string name="permiso_denegado">Permiso denegado</string>
     <string name="companieros_maximos">Solo puede seleccionar 6 acompañantes como máximo</string>
 

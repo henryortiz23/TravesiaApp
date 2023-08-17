@@ -41,7 +41,7 @@ public class NotasAdapter extends RecyclerView.Adapter<NotasAdapter.ViewHolder> 
         holder.binding.tvLugar.setText(nota.getLugar());
         holder.binding.tvFecha.setText(nota.getFecha());
         holder.binding.tvNota.setText(nota.getComentario());
-        int img = holder.itemView.getResources().getIdentifier("cap" + nota.getImg(), "drawable", holder.itemView.getContext().getPackageName());
+        int img = holder.itemView.getResources().getIdentifier("cap" + (nota.getImg()+1), "drawable", holder.itemView.getContext().getPackageName());
         holder.binding.fotografia.setImageResource(img);
 
         holder.setOnClickListener(nota, manejadorEventoClick);

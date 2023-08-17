@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +52,9 @@ import java.util.Random;
 
 public class NotasFragment extends Fragment implements LocationListener, OnItemClickListenerContactosSelect<Contacto> {
 
+    private ImageView selectedImageIcon;
+    private List<Integer> imageOptions;
+    private int selectedImageResId = -1;
     private FragmentNotasBinding binding;
 
     private InicioViewModel viewModelNotas;
@@ -62,7 +67,7 @@ public class NotasFragment extends Fragment implements LocationListener, OnItemC
 
     private List<Contacto> lSelectedContact;
 
-    private String fecha, latitud, longitud;
+    private String fecha, latitud="", longitud="";
     private int img;
 
     private static final int REQUEST_CODE_GPS = 123;
@@ -84,6 +89,8 @@ public class NotasFragment extends Fragment implements LocationListener, OnItemC
         viewModelNotas = new ViewModelProvider(this).get(InicioViewModel.class);
 
         viewModelAcompaniantes = new ViewModelProvider(this).get(AcompaniantesViewModel.class);
+
+        selectedImageIcon = binding.selectedImageIcon;
 
         binding.btnGuardar.setOnClickListener(v -> {
             if(verificar()) {
@@ -111,6 +118,7 @@ public class NotasFragment extends Fragment implements LocationListener, OnItemC
                     nNota.setLugar(nombre_lugar);
                     nNota.setComentario(comentario_lugar);
                     nNota.setAcompaniante(acom);
+                    nNota.setImg(img);
                     viewModelNotas.update(nNota);
 
                     NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
@@ -138,23 +146,75 @@ public class NotasFragment extends Fragment implements LocationListener, OnItemC
             navController.navigate(R.id.navigation_inicio);
         });
 
+        binding.btnMostrarContactos.setOnClickListener(v -> {
+            binding.btnMostrarContactos.setVisibility(View.GONE);
+            obtenerChips();
+        });
+
         setupRecycler();
+
+        setupListImage();
 
         notaEditar();
 
         mostrarNotaEditar();
 
         obtenerAcompaniantesNotaEditar();
-        binding.btnMostrarContactos.setOnClickListener(v -> {
-                binding.btnMostrarContactos.setVisibility(View.GONE);
-                obtenerChips();
-        });
+
+
 
         return root;
     }
 
+    private void setupListImage() {
+        imageOptions = Arrays.asList(
+                R.drawable.cap1, // ID de tu nueva imagen
+                R.drawable.cap2,
+                R.drawable.cap3,
+                R.drawable.cap4,
+                R.drawable.cap5,
+                R.drawable.cap6,
+                R.drawable.cap7,
+                R.drawable.cap8,
+                R.drawable.cap9,
+                R.drawable.cap10,
+                R.drawable.cap11,
+                R.drawable.cap12,
+                R.drawable.cap13,
+                R.drawable.cap14,
+                R.drawable.cap15,
+                R.drawable.cap16,
+                R.drawable.cap17
+        );
+
+        binding.opcion1.setOnClickListener(v -> onImageItemClick(0));
+        binding.opcion2.setOnClickListener(v -> onImageItemClick(1));
+        binding.opcion3.setOnClickListener(v -> onImageItemClick(2));
+        binding.opcion4.setOnClickListener(v -> onImageItemClick(3));
+        binding.opcion5.setOnClickListener(v -> onImageItemClick(4));
+        binding.opcion6.setOnClickListener(v -> onImageItemClick(5));
+        binding.opcion7.setOnClickListener(v -> onImageItemClick(6));
+        binding.opcion8.setOnClickListener(v -> onImageItemClick(7));
+        binding.opcion9.setOnClickListener(v -> onImageItemClick(8));
+        binding.opcion10.setOnClickListener(v -> onImageItemClick(9));
+        binding.opcion11.setOnClickListener(v -> onImageItemClick(10));
+        binding.opcion12.setOnClickListener(v -> onImageItemClick(11));
+        binding.opcion13.setOnClickListener(v -> onImageItemClick(12));
+        binding.opcion14.setOnClickListener(v -> onImageItemClick(13));
+        binding.opcion15.setOnClickListener(v -> onImageItemClick(14));
+        binding.opcion16.setOnClickListener(v -> onImageItemClick(15));
+        binding.opcion17.setOnClickListener(v -> onImageItemClick(16));
+    }
+
+
     private boolean verificar(){
-        return !"".equals(binding.etLugar.getEditText().getText().toString().trim()) && !"".equals(binding.etComentario.getEditText().getText().toString().trim());
+        if(!"".equals(binding.etLugar.getEditText().getText().toString().trim()) &&
+                !"".equals(binding.etComentario.getEditText().getText().toString().trim()) &&
+                        !"".equals(latitud) && !"".equals(longitud)){
+            return true;
+        }else {
+            return false;
+        }
     }
     private void obtenerChips() {
         binding.chipGroupAcompaniantes.removeAllViews();
@@ -215,7 +275,7 @@ public class NotasFragment extends Fragment implements LocationListener, OnItemC
             notaEditar = null;
             solicitarPermisosGPS(getContext());
             fecha = obtenerFecha();
-            img = obtenerRecursoImg();
+            img = selectedImageResId;
         }
     }
 
@@ -223,6 +283,8 @@ public class NotasFragment extends Fragment implements LocationListener, OnItemC
         if (notaEditar != null) {
             binding.etLugar.getEditText().setText(notaEditar.getLugar());
             binding.etComentario.getEditText().setText(notaEditar.getComentario());
+            latitud=notaEditar.getLatitud();
+            longitud= notaEditar.getLongitud();
 
             if (!"".equals(notaEditar.getAcompaniante())) {
                 binding.tvSinContactosSeleccionados.setVisibility(View.GONE);
@@ -234,10 +296,17 @@ public class NotasFragment extends Fragment implements LocationListener, OnItemC
                 binding.lSelectAcompaniantes.setVisibility(View.GONE);
             }
 
+
+            onImageItemClick(notaEditar.getImg());
+            //selectedImageIcon.setImageResource(notaEditar.getImg());
+            //Toast.makeText(getContext(), String.valueOf(notaEditar.getImg()), Toast.LENGTH_SHORT).show();
+
             binding.etLugar.requestFocus();
         } else {
             binding.tvSinContactosSeleccionados.setVisibility(View.VISIBLE);
             binding.btnMostrarContactos.setVisibility(View.GONE);
+
+            onImageItemClick(0);
         }
     }
 
@@ -256,12 +325,95 @@ public class NotasFragment extends Fragment implements LocationListener, OnItemC
         });
     }
 
-
-    public int obtenerRecursoImg() {
-        Random random = new Random();
-        int n = random.nextInt(17) + 1;
-        return n;
+    private void onImageItemClick(int position) {
+        selectedImageResId = imageOptions.get(position);
+        updateSelectedImage(position);
+        img=position;
     }
+
+    private void updateSelectedImage(int position) {
+        if (position >= 0 && position < imageOptions.size()) {
+            int selectedImageResId = imageOptions.get(position);
+            selectedImageIcon.setImageResource(selectedImageResId);
+        }
+        ocultarSelect(position);
+    }
+
+    private void ocultarSelect(int position) {
+        binding.imgSelect1.setVisibility(View.GONE);
+        binding.imgSelect2.setVisibility(View.GONE);
+        binding.imgSelect3.setVisibility(View.GONE);
+        binding.imgSelect4.setVisibility(View.GONE);
+        binding.imgSelect5.setVisibility(View.GONE);
+        binding.imgSelect6.setVisibility(View.GONE);
+        binding.imgSelect7.setVisibility(View.GONE);
+        binding.imgSelect8.setVisibility(View.GONE);
+        binding.imgSelect9.setVisibility(View.GONE);
+        binding.imgSelect10.setVisibility(View.GONE);
+        binding.imgSelect11.setVisibility(View.GONE);
+        binding.imgSelect12.setVisibility(View.GONE);
+        binding.imgSelect13.setVisibility(View.GONE);
+        binding.imgSelect14.setVisibility(View.GONE);
+        binding.imgSelect15.setVisibility(View.GONE);
+        binding.imgSelect16.setVisibility(View.GONE);
+        binding.imgSelect17.setVisibility(View.GONE);
+
+        switch (position){
+            case 0:
+                binding.imgSelect1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                binding.imgSelect2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                binding.imgSelect3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                binding.imgSelect4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                binding.imgSelect5.setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                binding.imgSelect6.setVisibility(View.VISIBLE);
+                break;
+            case 6:
+                binding.imgSelect7.setVisibility(View.VISIBLE);
+                break;
+            case 7:
+                binding.imgSelect8.setVisibility(View.VISIBLE);
+                break;
+            case 8:
+                binding.imgSelect9.setVisibility(View.VISIBLE);
+                break;
+            case 9:
+                binding.imgSelect10.setVisibility(View.VISIBLE);
+                break;
+            case 10:
+                binding.imgSelect11.setVisibility(View.VISIBLE);
+                break;
+            case 11:
+                binding.imgSelect12.setVisibility(View.VISIBLE);
+                break;
+            case 12:
+                binding.imgSelect13.setVisibility(View.VISIBLE);
+                break;
+            case 13:
+                binding.imgSelect14.setVisibility(View.VISIBLE);
+                break;
+            case 14:
+                binding.imgSelect15.setVisibility(View.VISIBLE);
+                break;
+            case 15:
+                binding.imgSelect16.setVisibility(View.VISIBLE);
+                break;
+            case 16:
+                binding.imgSelect17.setVisibility(View.VISIBLE);
+                break;
+        }
+
+    }
+
 
     private String obtenerFecha() {
         Date currentDate = new Date();

@@ -1,20 +1,16 @@
 package com.softs.hn.ip.travesiaapp.ui.inicio;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -234,7 +230,6 @@ public class InicioFragment extends Fragment implements OnItemClickListenerNotas
                 "Comentario: " + nota.getComentario() + "\n" +
                 "Ubicacion: " + nota.getLatitud() + "," + nota.getLongitud();
         try {
-            PackageManager packageManager = requireActivity().getPackageManager();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             String url = "https://api.whatsapp.com/send?phone=" + numero + "&text=" + URLEncoder.encode(mensaje, "UTF-8");
             intent.setPackage("com.whatsapp");
@@ -298,6 +293,7 @@ public class InicioFragment extends Fragment implements OnItemClickListenerNotas
     public void onItemClick(Nota data) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("nota", data);
+        bundle.putInt("imagenId", data.getImg());
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
         navController.navigate(R.id.navigation_notas, bundle);
     }
@@ -309,9 +305,6 @@ public class InicioFragment extends Fragment implements OnItemClickListenerNotas
 
     @Override
     public void onItemClickShared(Nota data) {
-        //compartirMensajePorWhatsApp("Voy a compartir este mensaje");
-        //compartirPorSMS("Voy a compartir este mensaje");
-        //compartirPorCorreo("Prueba","Voy a compartir este mensaje");
         DialogShare(data);
     }
 }
